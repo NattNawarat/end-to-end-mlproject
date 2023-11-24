@@ -2,3 +2,8 @@
 /logs/
 /src/logs/
 notebook/data/
+*/__pycache__/
+.vscode/
+artifact/raw.csv
+artifact/test.csv
+artifact/train.csv
