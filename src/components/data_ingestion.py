@@ -5,6 +5,7 @@ from src.logger import logging
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
+from data_transformation import DataTransformation
 
 @dataclass
 class DataIngestionConfig:
@@ -23,6 +24,13 @@ class DataIngestion:
             logging.info("read data as csv")
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
+            df = df.rename(columns={'race/ethnicity': 'race_ethnicity',
+            'parental level of education': 'parental_level_of_education',
+            "test preparation course" : "test_preparation_course",
+            "math score" : "math_score",
+            "reading score" : "reading_score",
+            "writing score" : "writing_score"
+            })
             
             df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
 
@@ -41,4 +49,7 @@ class DataIngestion:
 
 if __name__ == "__main__":
     obj=DataIngestion()
-    obj.initiate_data_ingestion()
+    train_path,test_path = obj.initiate_data_ingestion()
+
+    data_transformation = DataTransformation()
+    data_transformation.intiate_data_transformation(train_path,test_path)
