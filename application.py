@@ -10,6 +10,10 @@ application=Flask(__name__)
 app=application
 
 ## Route for a home page
+@app.route('/')
+def home():
+    return 'Hello, This is backend server only!'
+
 
 def validate_json_request(json_request):
     required_fields = ['gender', 'ethnicity', 'parental_level_of_education', 'lunch', 'test_preparation_course', 'writing_score', 'reading_score']
@@ -55,5 +59,5 @@ def predict_datapoint():
     
 
 if __name__=="__main__":
-    app.run(host="0.0.0.0", port=8000)        
+    app.run()        
 
